@@ -20,6 +20,9 @@ class Game:
         """
         checks if a word is valid for this game
         """
+        if not word:
+            return False
+
         available_chars = list(self.grid)
         for char in word:
             try :
@@ -31,7 +34,8 @@ class Game:
 
     @staticmethod
     def __check_dictionary(word):
+        #print(f"https://wagon-dictionary.herokuapp.com/{word}")
         response = requests.get(f"https://wagon-dictionary.herokuapp.com/{word}")
         json_response = response.json()
-        print (f'{json_response}')
+        #print (f'{json_response}')
         return json_response['found']

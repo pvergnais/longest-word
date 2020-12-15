@@ -11,18 +11,27 @@ class TestGame(unittest.TestCase):
         for letter in grid:
             self.assertIn(letter, string.ascii_uppercase)
 
-    def test_game_is_valid(self):
-        new_game = Game()
-        new_game.grid = list('AEIOPRTUYZ')
-        self.assertIs(new_game.is_valid('AZERTY'),True)
-        self.assertEqual(new_game.grid, list('AEIOPRTUYZ')) # Make sure the grid remained untouched
-
-
     def test_game_is_invalid(self):
         new_game = Game()
-        new_game.grid = list('AEIOPRTUYZ')
-        self.assertIs(new_game.is_valid('QWERTY'),False)
-        self.assertEqual(new_game.grid, list('AEIOPRTUYZ')) # Make sure the grid remained untouched
+        new_game.grid = list('KWIENFUQW')
+        new_game.is_valid('FEUN')
+        self.assertEqual(new_game.grid, list('KWIENFUQW')) # Make sure the grid remained untouched
+
+    def test_empty_word_is_invalid(self):
+        new_game = Game()
+        self.assertIs(new_game.is_valid(''), False)
+
+    def test_is_valid(self):
+        new_game = Game()
+        new_game.grid = list('KWEUEAKRZ') # Force the grid to a test case:
+        self.assertIs(new_game.is_valid('EUREKA'), True)
+        self.assertEqual(new_game.grid, list('KWEUEAKRZ')) # Make sure the grid remained untouched
+
+    def test_is_invalid(self):
+        new_game = Game()
+        new_game.grid = list('KWEUEAKRZ') # Force the grid to a test case:
+        self.assertIs(new_game.is_valid('SANDWICH'), False)
+        self.assertEqual(new_game.grid, list('KWEUEAKRZ')) # Make sure the grid remained untouched
 
     def test_unknown_word_is_invalid(self):
         new_game = Game()
